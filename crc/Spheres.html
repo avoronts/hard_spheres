@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Packing using Collision-Driven Molecular Dynamics</title>
+</head>
+<body>
+This webpage contains source codes of C++ programs to
+generate hard-particle packings in a Euclidean space of arbitrary
+dimension. If you use these codes, please reference this paper:<br>
+<br>
+<span style="font-weight: bold;">"<span style="font-style: italic;">Packing
+hard spheres in high dimensional Euclidean spaces</span>", by M.
+Skoge, A. Donev, F. H. Stillinger, and S. Torquato, 2006</span><br>
+<span style="font-weight: bold;"></span><br>
+<span style="font-weight: bold; font-style: italic;">Disclaimer</span>:
+The programs given here are <span style="font-style: italic;">general</span>
+molecular-dynamics codes. They can be used to prepape disordered jammed
+packings of hard particles, if used with the appropriate options. <span
+ style="font-weight: bold;">The programs do not automatically generate
+packings, yet alone jammed packings</span>. The above paper should
+provide background on the algorithm and appropriate parameters to use. <br>
+<br>
+Please read the following instructions carefully before asking
+questions, and contact Monica Skoge (<span style="font-style: italic;"><span
+ style="font-weight: bold;">mskoge</span> </span><span
+ style="font-style: italic;">at domain</span><span
+ style="font-style: italic;">&nbsp; <span style="font-weight: bold;">princeton.edu</span></span>)
+for help.<br>
+<br>
+All the files are in the zip archive <a href="spheres.zip">spheres.zip</a>.
+The files needed to compile are <a href="neighbor.C">neighbor.C</a>, <a
+ href="spheres.C">spheres.C</a>, <a href="box.C">box.C</a>,
+<a href="sphere.C">sphere.C</a>, <a href="event.C">event.C</a>, <a
+ href="heap.C">heap.C</a>, and <a href="read_%20input.C">read_ input.C</a>
+along with corresponding header (.h) files. The main program is
+spheres.C and calls the core computational functions in box.C. Simply
+compile with
+<pre>
+	g++ -O neighbor.C spheres.C box.C sphere.C event.C heap.C read_input.C </pre>
+The codes use<br>
+<ul>
+  <li>A modified Lubachevsky-Stillinger algorithm, in which hard
+spheres are
+grown in size and evolved according to Newtonian dynamics. </li>
+  <li>Periodic boundary conditions applied to a hypercubic cell of
+length one along each dimension.<br>
+  </li>
+  <li>The cell method, in which the computational domain is divided
+into
+cubic cells and only neighboring cells are checked with predicting
+collisions for a given sphere. </li>
+</ul>
+The dimension of the packing is defined through the constant DIM in
+<a href="vector.h">vector.h</a> and the input file containing the
+parameters and input/output
+file names is in <a href="input">input</a>. In this file, the user can
+either specify to read in an existing configuration of
+hard spheres from a file by specifying the appropriate file name in
+<span style="font-style: italic;">readfile</span> or the user can
+create a new configuration by setting <span style="font-style: italic;">readfile</span>
+to <span style="font-style: italic;">new</span>. In the latter case, a
+configuration of <span style="font-style: italic;">N</span> spheres is
+created at density <span style="font-style: italic;">initialpf</span>&nbsp;
+by random
+sequential addition.<br>
+If the temperature <span style="font-style: italic;">temp</span> is
+set to zero, then all spheres are given zero
+initial velocities; otherwise velocities are initially chosen from a
+Maxwell-Boltzman distribution. The expansion rate <span
+ style="font-style: italic;">growthrate</span> governs
+the rate at which the sphere diameter increases in units of the
+simulation box size divided by the sphere velocity. Due to expansion,
+the kinetic energy increases after collisions. Therefore velocities are
+rescaled to 1 after every "cycle". The user specifies the number of
+events per sphere in one cycle with the parameter <span
+ style="font-style: italic;">eventspercyle</span>.
+Statistics, such as pressure, are calculated after every cycle and
+outputted to <span style="font-style: italic;">datafile</span>. The
+simulation runs until reaching either the maximum allowed packing
+fraction <span style="font-style: italic;">maxpf</span> or the maximum
+allowed pressure <span style="font-style: italic;">maxpressure</span>.
+Before
+terminating, the positions of all spheres are outputted to <span
+ style="font-style: italic;">writefile</span>.<br>
+<br>
+The program produces two output files:<br>
+<ol>
+  <li><span style="font-style: italic;">writefile</span> contains the
+final positions of all the spheres. Its format is explained below.<br>
+  </li>
+  <li><span style="font-style: italic;">datafile</span>
+contains the statistics calculated after each cycle. The statistics
+include (as columns in this order) the current packing fraction,
+pressure, total change
+in kinetic energy before rescaling and the total number of MD events
+processed.</li>
+</ol>
+<br>
+The ASCII file formats used for storing sphere packing configurations
+is as follows (in three dimensions):<br>
+______________________<br>
+<div style="margin-left: 40px;">
+<pre>n_dims ! Euclidian space dimensionality d</pre>
+<pre>N 1 ! Total number of particles</pre>
+<pre>N ! Same as above</pre>
+<pre>D ! Sphere diameter</pre>
+<pre>Lambda ! Lattice vectors for unit cell, here a unit cube</pre>
+<pre>T T T ! Periodic boundary conditions along all dimensions</pre>
+<pre>x1 y1 z1 ! Coordinates of first sphere center</pre>
+<pre>x2 y2 z2 ! second, etc...</pre>
+<pre>...</pre>
+</div>
+______________________<br>
+The format may seem weird, but it is chosen to conform to the format
+for monodisperse packings (i.e. packings where all particles have the
+same shape and size) described at <a
+ href="http://atom.princeton.edu/Packing/Fortran">http://atom.princeton.edu/Packing/Fortran</a>.<br>
+</body>
+</html>
