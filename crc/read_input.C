@@ -35,6 +35,7 @@ int read_input::read(int argc, char * argv[])
     char buf[100],c;
     infile.get(buf,100,'='); infile.get(c); infile >> eventspercycle;
     infile.get(buf,100,'='); infile.get(c); infile >> N;
+    infile.get(buf,100,'='); infile.get(c); infile >> maxcycles;  // !!!!!!!!!!!!  added  by A. Vorontsov
     infile.get(buf,100,'='); infile.get(c); infile >> initialpf;
     infile.get(buf,100,'='); infile.get(c); infile >> maxpf;
     infile.get(buf,100,'='); infile.get(c); infile >> temp;
@@ -54,6 +55,7 @@ int read_input::read(int argc, char * argv[])
       }
     std::cout << "   eventspercycle : " << eventspercycle << std::endl;
     std::cout << "   N : " << N << std::endl;
+    std::cout << "   maxcycles : " << maxcycles << std::endl;     // !!!!!!!!!!!!  added  by A. Vorontsov
     std::cout << "   initialpf : " << initialpf << std::endl;
     std::cout << "   maxpf : " << maxpf << std::endl;
     std::cout << "   temp : " << temp << std::endl;

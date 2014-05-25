@@ -101,7 +101,8 @@ class box {
   void PrintStatistics();
   void RunTime();
   void WriteConfiguration(const char* wconfigfile);
-  
+  double MSD();  // mean square displacement !!!!!!!!!!!!  added  by A. Vorontsov
+ 
   
   //variables
 
@@ -135,8 +136,8 @@ class box {
   int *binlist;                   // linked-list for cells array
   heap h;                         // event heap
   vector<DIM> *x;                 // positions of spheres.used for graphics
+  
 };
-
 
 //---------------------------------------------------------------------------
 // Predicts collisions, inherits neighbor operation

@@ -83,14 +83,19 @@ int main(int argc, char **argv)
   
   std::ofstream output(input.datafile);
   output.precision(16);  
-
+  
+  int ncycles =0; //
   while ((b.pf < input.maxpf) && (b.pressure < input.maxpressure)) 
     {
+      if ((input.maxcycles > 0) && (ncycles >=  input.maxcycles)) break;  // !!!!!!!!!!!!  added  by A. Vorontsov
+      ncycles +=1;  // 
+
       b.Process(input.eventspercycle*input.N);
       output << b.pf << " " << b.pressure << " " << 
-	b.energychange << " " << b.neventstot << " " << std::endl;
+	b.energychange << " " << b.neventstot << " " << b.MSD() << " " << std::endl;
 
       b.Synchronize(true);
+      std::cout << "step number " << ncycles << " " << b.pf << " " << b.pressure <<std::endl;
     }
   
   output.close();

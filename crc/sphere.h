@@ -29,6 +29,8 @@ class sphere {
   double lutime;                  // last update time
   vector<DIM, int> cell;          // cell that it belongs to
   vector<DIM, double> x;          // position
+  vector<DIM, double> x0;         // initial position !!!!!!!  added  by A. Vorontsov
+  vector<DIM, double> xns;	  // position without shifting to cube !!!!!!!  added  by A. Vorontsov
   vector<DIM, double> v;          // velocity
   // make sure efficent in memory
 

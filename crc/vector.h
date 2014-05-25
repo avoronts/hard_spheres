@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-#define DIM 5
+#define DIM 3
 
 template <int D, typename T=double>
 class vector {

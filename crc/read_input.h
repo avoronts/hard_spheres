@@ -8,11 +8,12 @@ class read_input {
 
 public:
 
-  int eventspercycle;          // # events per particle per cycle 
-  int N;                        // # spheres
-  double initialpf;               // initial packing fraction
-  double maxpf;            // maximum packing fraction
-  double temp;                      // initial temperature (temp=0 means v=0)
+  int eventspercycle;         // # events per particle per cycle 
+  int N;                      // # spheres
+  int maxcycles;         // maximum number of cycles !!!!!!!!! added  by A. Vorontsov
+  double initialpf;           // initial packing fraction
+  double maxpf;               // maximum packing fraction
+  double temp;               // initial temperature (temp=0 means v=0)
   double growthrate;               
   double maxpressure;              
   char readfile[NAME_LEN];    // file with configuration; if new, creates new

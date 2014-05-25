@@ -29,6 +29,8 @@ sphere::sphere(const sphere& s)
 {
   i = s.i;
   x = s.x;
+  x0 = s.x0;		// !!!!!!!!!!!!  added  by A. Vorontsov
+  xns = s.xns;		// !!!!!!!!!!!!  added  by A. Vorontsov
   v = s.v;
   cell = s.cell;
   lutime = s.lutime;
@@ -42,6 +44,8 @@ sphere::sphere(const sphere& s)
 sphere::sphere(int i_i, vector<DIM> x_i, vector<DIM, int> cell_i, double lutime_i):
   i(i_i),
   x(x_i),
+  x0(x_i),		// !!!!!!!!!!!!  added  by A. Vorontsov
+  xns(x_i),		// !!!!!!!!!!!!  added  by A. Vorontsov
   cell(cell_i),
   lutime(lutime_i)
 {

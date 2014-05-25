@@ -1,0 +1,11 @@
+int eventspercycle = 20;  // # events per sphere per cycle
+int N = 4000;                         // number of spheres 
+int maxcycles =100;		// maximum number of cycles  // !!!!!!!!!!!!  added  by A. Vorontsov
+double initialpf = 0.01;                   // initial packing fraction
+double maxpf = 1.1;                   // max packing fraction
+double temp = 0.2;    // initial temp., use 0 for zero velocities
+double growthrate = 0.0;          // growth rate
+double maxpressure = 1000.;           // max pressure 
+char* readfile = final.xyz //hcp_start.xyz //new                   // if new, creates new packing
+char* writefile = write.dat  // after mp2
+char* datafile = stats.dat  // data file up to mp2

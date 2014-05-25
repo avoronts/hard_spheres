@@ -710,6 +710,7 @@ void box::Transfer(event e)
  
   // update position and lutime (velocity doesn't change)
   s[i].x += s[i].v*(gtime-s[i].lutime);
+  s[i].xns += s[i].v*(gtime-s[i].lutime); // !!!!!!!!!!!!  added  by A. Vorontsov
   s[i].lutime = gtime;
 
   vector<DIM,int> celli;  // new cell for i
@@ -870,6 +871,20 @@ double box::PackingFraction()
   return N*v/(pow(SIZE, DIM));
 }
 
+//==============================================================
+// Computes the mean square displacement
+// !!!!!!!!!!!!  added  by A. Vorontsov
+// !!!!!!!!!!!! South-Ural State University
+// !!!!!!!!!!!! sas@physics.susu.ac.ru  
+//==============================================================
+double box::MSD()
+{
+  double m = 0;
+  for (int i=0; i<N; i++)
+    m += vector<DIM>::norm_squared(s[i].xns-s[i].x0);
+  m =m/N;
+  return m;
+}
 
 //==============================================================
 // Calculates the optimal ngrids
