@@ -1,0 +1,11 @@
+hard spheres MD of 
+"Packing hard spheres in high dimensional Euclidean spaces", by M. Skoge, A. Donev, F. H. Stillinger, and S. Torquato, 2006
+
+
+A. Vorontsov (sas@physics.susu.ac.ru ),
+South-Ural State University, Chelyabinsk, Russia,
+
+added features:
+add Mean Square Displacement (last column in output) for diffusion coeffisient calculations
+add maxcycles - maximum number of cycles (if cycling without compression)
+add minpf     - minimum packing fraction (if growsrate is negative). It helps if you disorder a crystal.
