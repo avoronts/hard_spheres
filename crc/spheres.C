@@ -85,7 +85,7 @@ int main(int argc, char **argv)
   output.precision(16);  
   
   int ncycles =0; //
-  while ((b.pf < input.maxpf) && (b.pressure < input.maxpressure)) 
+  while ((input.minpf <= b.pf) && (b.pf < input.maxpf) && (b.pressure < input.maxpressure)) 
     {
       if ((input.maxcycles > 0) && (ncycles >=  input.maxcycles)) break;  // !!!!!!!!!!!!  added  by A. Vorontsov
       ncycles +=1;  // 

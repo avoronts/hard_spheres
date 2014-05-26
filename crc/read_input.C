@@ -38,6 +38,7 @@ int read_input::read(int argc, char * argv[])
     infile.get(buf,100,'='); infile.get(c); infile >> maxcycles;  // !!!!!!!!!!!!  added  by A. Vorontsov
     infile.get(buf,100,'='); infile.get(c); infile >> initialpf;
     infile.get(buf,100,'='); infile.get(c); infile >> maxpf;
+    infile.get(buf,100,'='); infile.get(c); infile >> minpf;	  // !!!!!!!!!!!!  added  by A. Vorontsov
     infile.get(buf,100,'='); infile.get(c); infile >> temp;
     infile.get(buf,100,'='); infile.get(c); infile >> growthrate;
     infile.get(buf,100,'='); infile.get(c); infile >> maxpressure;
@@ -58,6 +59,7 @@ int read_input::read(int argc, char * argv[])
     std::cout << "   maxcycles : " << maxcycles << std::endl;     // !!!!!!!!!!!!  added  by A. Vorontsov
     std::cout << "   initialpf : " << initialpf << std::endl;
     std::cout << "   maxpf : " << maxpf << std::endl;
+    std::cout << "   minpf : " << minpf << std::endl;             // !!!!!!!!!!!!  added  by A. Vorontsov
     std::cout << "   temp : " << temp << std::endl;
     std::cout << "   growthrate : " << growthrate << std::endl;
     std::cout << "   maxpressure : " << maxpressure << std::endl;

@@ -10,9 +10,10 @@ public:
 
   int eventspercycle;         // # events per particle per cycle 
   int N;                      // # spheres
-  int maxcycles;         // maximum number of cycles !!!!!!!!! added  by A. Vorontsov
+  int maxcycles;              // maximum number of cycles !!!!!!!!! added  by A. Vorontsov
   double initialpf;           // initial packing fraction
   double maxpf;               // maximum packing fraction
+  double minpf;               // minimum packing fraction !!!!!!!!! added  by A. Vorontsov
   double temp;               // initial temperature (temp=0 means v=0)
   double growthrate;               
   double maxpressure;              

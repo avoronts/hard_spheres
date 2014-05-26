@@ -53,6 +53,7 @@ box::box(int N_i, double r_i, double growthrate_i, double maxpf_i):
   ncycles = 0;
   xmomentum = 0.; 
   pressure = 0.;
+  pf = 0;
 
   cells.set_size(ngrids);
   cells.initialize(-1);      // initialize cells to -1
