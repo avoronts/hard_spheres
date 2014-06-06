@@ -6,6 +6,7 @@ A. Vorontsov (sas@physics.susu.ac.ru ),
 South-Ural State University, Chelyabinsk, Russia,
 
 added features:
-add Mean Square Displacement (last column in output) for diffusion coeffisient calculations
+add Mean Square Displacement for diffusion coeffisient calculations
+add Velocity Autocorellation Function (last column in output) 
 add maxcycles - maximum number of cycles (if cycling without compression)
 add minpf     - minimum packing fraction (if growsrate is negative). It helps if you disorder a crystal.

@@ -53,11 +53,11 @@ box::box(int N_i, double r_i, double growthrate_i, double maxpf_i):
   ncycles = 0;
   xmomentum = 0.; 
   pressure = 0.;
-  pf = 0;
+  v0_sqr = 0;	// sum of squared initial velocities !!  added  by A. Vorontsov 
 
   cells.set_size(ngrids);
   cells.initialize(-1);      // initialize cells to -1
-  srandom(::time(0));        // initialize the random number generator
+  srand(::time(0));        // initialize the random number generator
   for (int i=0; i<N; i++)    // initialize binlist to -1
     binlist[i] = -1;
   
@@ -96,6 +96,7 @@ void box::ReadPositions(const char* filename)
       infile >> s[i].x[k];
 
   infile.close();
+  pf = PackingFraction();   // packing fraction !!!!!! add by A.Vorontsov
 }
 
 
@@ -108,6 +109,7 @@ void box::RecreateSpheres(const char* filename, double temp)
   VelocityGiver(temp);      // gives spheres initial velocities
   AssignCells();            // assigns spheres to cells
   SetInitialEvents();
+  pf = PackingFraction();   // packing fraction !!!!!! add by A.Vorontsov
 }
 
 
@@ -127,6 +129,7 @@ void box::CreateSpheres(double temp)
   
   VelocityGiver(temp);
   SetInitialEvents();
+  pf = PackingFraction();   // packing fraction !!!!!! add by A.Vorontsov
 }
 
    
@@ -145,7 +148,7 @@ void box::CreateSphere(int Ncurrent)
       keeper = 1;
       
       for(int k=0; k<DIM; k++) 
-	xrand[k] = ((double)random()/(double)RAND_MAX)*SIZE;
+	xrand[k] = ((double)rand()/(double)RAND_MAX)*SIZE;
       
       for (int i=0; i<Ncurrent; i++)  // need to check nearest image!
 	{
@@ -251,6 +254,8 @@ void box::VelocityGiver(double T)
 	    s[i].v[k] = 0.;
 	  else
 	    s[i].v[k] = Velocity(T);
+            s[i].v0[k] = s[i].v[k];  // initial velocity !!!! add by A.Vorontsov   
+            v0_sqr += s[i].v[k]*s[i].v[k]; // square of velocity !!!! add by A.Vorontsov
 	}
     }
 }
@@ -261,7 +266,7 @@ void box::VelocityGiver(double T)
 //==============================================================
 double box::Velocity(double T)
 {
-  double rand;                       // random number between -0.5 and 0.5
+  double rand1;                       // random number between -0.5 and 0.5
   double sigmasquared = T;    // Assumes M = mass of sphere = 1
   double sigma = sqrt(sigmasquared); // variance of Gaussian
   double stepsize = 1000.;           // stepsize for discretization of integral
@@ -269,14 +274,14 @@ double box::Velocity(double T)
   double dv=sigma/stepsize;
   double p=0.0;
   
-  rand = (double)random() / (double)RAND_MAX - 0.5;
-  if(rand < 0) 
+  rand1 = (double)rand() / (double)RAND_MAX - 0.5;
+  if(rand1 < 0) 
     {
-      rand = -rand;
+      rand1 = -rand1;
       dv = -dv;
     }
   
-  while(fabs(p) < rand) // integrate until the integral equals rand
+  while(fabs(p) < rand1) // integrate until the integral equals rand
     {
       p += dv * 0.39894228 * exp(-vel*vel/(2.*sigmasquared))/sigma;
       vel += dv;
@@ -873,7 +878,7 @@ double box::PackingFraction()
 }
 
 //==============================================================
-// Computes the mean square displacement
+// Computes the Mean Square Displacement
 // !!!!!!!!!!!!  added  by A. Vorontsov
 // !!!!!!!!!!!! South-Ural State University
 // !!!!!!!!!!!! sas@physics.susu.ac.ru  
@@ -884,6 +889,21 @@ double box::MSD()
   for (int i=0; i<N; i++)
     m += vector<DIM>::norm_squared(s[i].xns-s[i].x0);
   m =m/N;
+  return m;
+}
+
+//==============================================================
+// Computes the Velocity Autocorrelation Function
+// !!!!!!!!!!!!  added  by A. Vorontsov
+// !!!!!!!!!!!! South-Ural State University
+// !!!!!!!!!!!! sas@physics.susu.ac.ru  
+//==============================================================
+double box::VACF()
+{
+  double m = 0;
+  for (int i=0; i<N; i++)
+     m += vector<DIM>::dot(s[i].v,s[i].v0);
+  m =m/v0_sqr;
   return m;
 }
 

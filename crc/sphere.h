@@ -32,6 +32,7 @@ class sphere {
   vector<DIM, double> x0;         // initial position !!!!!!!  added  by A. Vorontsov
   vector<DIM, double> xns;	  // position without shifting to cube !!!!!!!  added  by A. Vorontsov
   vector<DIM, double> v;          // velocity
+  vector<DIM, double> v0;         // initial velocities !!!!!!!  added  by A. Vorontsov
   // make sure efficent in memory
 
  

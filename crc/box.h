@@ -102,6 +102,7 @@ class box {
   void RunTime();
   void WriteConfiguration(const char* wconfigfile);
   double MSD();  // mean square displacement !!!!!!!!!!!!  added  by A. Vorontsov
+  double VACF();  // velicity autocorrelation function !!!!!!!!!!!!  added  by A. Vorontsov
  
   
   //variables
@@ -117,6 +118,7 @@ class box {
   
 
   // statistics
+  double v0_sqr;		  // sum of squared initial velocities !!!!!!!  added  by A. Vorontsov 
   double pressure;               // pressure
   double xmomentum;              // exchanged momentum
   double pf;                     // packing fraction

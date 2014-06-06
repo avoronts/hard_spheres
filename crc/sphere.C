@@ -31,7 +31,8 @@ sphere::sphere(const sphere& s)
   x = s.x;
   x0 = s.x0;		// !!!!!!!!!!!!  added  by A. Vorontsov
   xns = s.xns;		// !!!!!!!!!!!!  added  by A. Vorontsov
-  v = s.v;
+  v  = s.v;
+  v0 = s.v0;             // !!!!!!!!!!!!  added  by A. Vorontsov
   cell = s.cell;
   lutime = s.lutime;
   nextevent = s.nextevent;

@@ -83,8 +83,9 @@ int main(int argc, char **argv)
   
   std::ofstream output(input.datafile);
   output.precision(16);  
-  
+
   int ncycles =0; //
+  std::cout << "starting configuration " << b.pf << " " << b.pressure <<std::endl;
   while ((input.minpf <= b.pf) && (b.pf < input.maxpf) && (b.pressure < input.maxpressure)) 
     {
       if ((input.maxcycles > 0) && (ncycles >=  input.maxcycles)) break;  // !!!!!!!!!!!!  added  by A. Vorontsov
@@ -92,7 +93,7 @@ int main(int argc, char **argv)
 
       b.Process(input.eventspercycle*input.N);
       output << b.pf << " " << b.pressure << " " << 
-	b.energychange << " " << b.neventstot << " " << b.MSD() << " " << std::endl;
+	b.energychange << " " << b.neventstot << " " << b.MSD() << " " << b.VACF() << " " << std::endl;
 
       b.Synchronize(true);
       std::cout << "step number " << ncycles << " " << b.pf << " " << b.pressure <<std::endl;
@@ -101,8 +102,6 @@ int main(int argc, char **argv)
   output.close();
 
   b.WriteConfiguration(input.writefile);
-  
- 
   
   return 0;
 }
